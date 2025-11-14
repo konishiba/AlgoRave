@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\P2\\CSharp\\Music\\Music.csproj": {}
+    "C:\\Users\\yoan\\Documents\\GitHub\\AlgoRave\\Music.csproj": {}
   },
   "projects": {
-    "D:\\P2\\CSharp\\Music\\Music.csproj": {
+    "C:\\Users\\yoan\\Documents\\GitHub\\AlgoRave\\Music.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\P2\\CSharp\\Music\\Music.csproj",
+        "projectUniqueName": "C:\\Users\\yoan\\Documents\\GitHub\\AlgoRave\\Music.csproj",
         "projectName": "Music",
-        "projectPath": "D:\\P2\\CSharp\\Music\\Music.csproj",
-        "packagesPath": "C:\\Users\\GIME1202\\.nuget\\packages\\",
-        "outputPath": "D:\\P2\\CSharp\\Music\\obj\\",
+        "projectPath": "C:\\Users\\yoan\\Documents\\GitHub\\AlgoRave\\Music.csproj",
+        "packagesPath": "C:\\Users\\yoan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yoan\\Documents\\GitHub\\AlgoRave\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\GIME1202\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yoan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

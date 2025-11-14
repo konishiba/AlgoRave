@@ -15,8 +15,10 @@ class Program
 
     static void Main()
     {
-        //LiveCoding();
-        Sound();
+        AppDomain.CurrentDomain.ProcessExit += Exit;
+        LiveCoding();
+
+        //Sound();
     }
 
 
@@ -41,18 +43,22 @@ class Program
         LiveContext _ctx = new LiveContext();
 
         LiveCodingSystem _liveCoding = new LiveCodingSystem(_ctx);
-        //_liveCoding.Execute();
-        AppDomain.CurrentDomain.ProcessExit += Exit;
+        _liveCoding.OnReloaded += _ctx.Refresh;
+        _ctx.Start();
         while (exit == false)
         {
-            if (_ctx.MyObj != null)
-                Console.WriteLine(_ctx.MyObj.ToString());
-                //_ctx.MyObj.Update();
-
-            else
-                Console.WriteLine("Null");
-            Thread.Sleep(1000);
         }
+        //_liveCoding.Execute();
+        //while (exit == false)
+        //{
+        //    if (_ctx.MyObj != null)
+        //        Console.WriteLine(_ctx.MyObj.ToString());
+        //        //_ctx.MyObj.Update();
+
+        //    else
+        //        Console.WriteLine("Null");
+        //    Thread.Sleep(1000);
+        //}
     }
 
     static void Exit(object _sender, EventArgs _e)
