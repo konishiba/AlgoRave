@@ -46,7 +46,12 @@ public class LiveCodingSystem
         _watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName;
 
         //_watcher.Changed += async (s, e) => await Reload(scriptPath);
-        _watcher.Renamed += async (s, e) => await Reload(scriptPath);
+        _watcher.Renamed += async (s, e) =>
+        {
+            if (Path.GetFileName(e.FullPath) != Path.GetFileName(scriptPath))
+                return;
+            await Reload(scriptPath);
+        };
 
         _watcher.EnableRaisingEvents = true;
 

@@ -21,6 +21,9 @@ public class WaveProvider : WaveProvider32
         {
             buffer[offset + i] = (float)Math.Sin(phase);
             phase += 2f * MathF.PI * frequency / WaveFormat.SampleRate;
+
+            if (phase > MathF.PI * 2)
+                phase -= MathF.PI * 2;
         }
         return count;
     }
