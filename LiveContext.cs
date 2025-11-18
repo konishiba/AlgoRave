@@ -24,6 +24,7 @@ public class LiveContext
         output.Stop();
         output.Dispose();
         output.Init(wave);
+        wave.UpdateVolume(wave.volume, ref output);
         output.Play();
     }
 }

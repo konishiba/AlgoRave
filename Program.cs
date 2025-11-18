@@ -16,23 +16,25 @@ class Program
     static void Main()
     {
         AppDomain.CurrentDomain.ProcessExit += Exit;
-        LiveCoding();
+        //LiveCoding();
 
-        //Sound();
+        Sound();
     }
 
 
     static void Sound()
     {
-        WaveProvider _wave = new WaveProvider(440);
+        WaveProvider _wave = new WaveProvider(392f);
         WaveProvider _secondWave = new WaveProvider(800);
         WaveOutEvent _firstOutput = new WaveOutEvent();
         WaveOutEvent _secondOutput = new WaveOutEvent();
         _firstOutput.Init(_wave);
+        _wave.UpdateVolume(50.0f,ref _firstOutput);
         _firstOutput.Play();
 
-        _secondOutput.Init(_secondWave);
-        _secondOutput.Play();
+        //_secondOutput.Init(_secondWave);
+        //_secondWave.UpdateVolume(50.0f,ref _secondOutput);
+        //_secondOutput.Play();
 
 
         Console.ReadLine();

@@ -9,6 +9,7 @@ public class WaveProvider : WaveProvider32
 {
     float phase = 0;
     public float frequency = 440;
+    public float volume = 0.5f;
 
     public WaveProvider (float _frequency)
     {
@@ -26,6 +27,11 @@ public class WaveProvider : WaveProvider32
                 phase -= MathF.PI * 2;
         }
         return count;
+    }
+
+    public void UpdateVolume(float _volume, ref WaveOutEvent _output)
+    {
+        _output.Volume = _volume / 1000;
     }
 }
 
