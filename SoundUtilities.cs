@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.MediaFoundation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,15 +45,46 @@ static class NoteUtilites
 {
     static Regex regex = new Regex(@"^[A-G](#{0,1})(?:0|[1-8])$");
 
-    static float NoteToFrequence(string _fullNote)
+    public static float NoteToFrequence(string _fullNote)
     {
-        Match match = regex.Match(_fullNote);
-        if (!match.Success) return 0.0f;
-        string _note = match.Groups[1].Value;
-        string _Sharpe = match.Groups[2].Value;
-        int _octave = int.Parse(match.Groups[3].Value);
-        return 0.0f; //Note * 2^_octave
+        Match _match = regex.Match(_fullNote);
+        if (!_match.Success) return 0.0f;
+        string _note = _match.Groups[1].Value;
+        string _sharpe = _match.Groups[2].Value;
+        int _octave = int.Parse(_match.Groups[3].Value);
+
+        float _frequence = NoteToFrequence(_note, _sharpe);
+
+        return _frequence * MathF.Pow(2, _octave); //Note * 2^_octave
     }
+
+    public static ENote StringToENote(string note)
+    {
+        ENote _note = (ENote)Enum.Parse(typeof(ENote), note);
+        return _note;
+    }
+    public  static ESemitones StringToESemitones(string note)
+    {
+        ESemitones _note = (ESemitones)Enum.Parse(typeof(ESemitones), note);
+        return _note;
+    }
+
+
+    public static float NoteToFrequence(string _note, string _sharp)
+    {
+        int _enumValue = 0;
+        if(_sharp == "#")
+        {
+            _enumValue = (int)StringToESemitones(_note);
+        }
+        else
+        {
+            _enumValue = (int)StringToENote(_note);
+        }
+
+        return _enumValue / 100;
+    }
+
 
 }
 
