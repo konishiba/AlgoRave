@@ -12,32 +12,37 @@ using System.Windows;
 class Program
 {
     static bool exit = false;
-
+    static WaveProvider wave = null;
     static void Main()
     {
         AppDomain.CurrentDomain.ProcessExit += Exit;
+        Sound();
+        wave.Patern.Add("C#6");
+        wave.Patern.Add("F2");
+        Console.WriteLine("Wave");
+
+        while (exit == false)
+        {
+            Time.UpdateDeltime();
+            wave.Update();
+            //Console.WriteLine("Wave"); 
+        }
+
         //LiveCoding();
 
-        Sound();
+        //Console.WriteLine(NoteUtilites.NoteToFrequence("C4"));
+
+        //Sound();
     }
 
 
     static void Sound()
     {
-        WaveProvider _wave = new WaveProvider(392f);
-        WaveProvider _secondWave = new WaveProvider(800);
+        wave = new WaveProvider(NoteUtilites.NoteToFrequence("C#4"));
         WaveOutEvent _firstOutput = new WaveOutEvent();
-        WaveOutEvent _secondOutput = new WaveOutEvent();
-        _firstOutput.Init(_wave);
-        _wave.UpdateVolume(50.0f,ref _firstOutput);
+        _firstOutput.Init(wave);
+        wave.UpdateVolume(50.0f,ref _firstOutput);
         _firstOutput.Play();
-
-        //_secondOutput.Init(_secondWave);
-        //_secondWave.UpdateVolume(50.0f,ref _secondOutput);
-        //_secondOutput.Play();
-
-
-        Console.ReadLine();
     }
 
     static void LiveCoding()

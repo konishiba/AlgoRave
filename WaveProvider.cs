@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 public class WaveProvider : WaveProvider32
 {
-    float phase = 0;
-    public float frequency = 440;
+    double phase = 0;
+    public double frequency = 440;
     public float volume = 0.5f;
+    List<string> patern = new List<string>();
+    int currentIndexPatern = 0;
 
-    public WaveProvider (float _frequency)
+    double currentTime = 0.0f, cycleTime = 2.0f;
+
+    public List<string>Patern { get { return patern; } set { patern = value; } } 
+
+    public WaveProvider (double _frequency)
     {
         frequency = Math.Clamp(_frequency, 20, 18000);
     }
@@ -32,6 +38,36 @@ public class WaveProvider : WaveProvider32
     public void UpdateVolume(float _volume, ref WaveOutEvent _output)
     {
         _output.Volume = _volume / 1000;
+    }
+
+    public void Update()
+    {
+        UpdateTimer();
+    }
+
+    public void ReadPatern()
+    {
+        if (patern.Count < 1) return;
+        frequency = NoteUtilites.NoteToFrequence(patern[currentIndexPatern]);
+        Console.WriteLine(patern[currentIndexPatern]);
+    }
+
+    void UpdateTimer()
+    {
+        currentTime += Time.Deltatime;
+        if (currentTime > cycleTime)
+        {
+            IncrementIndexPatern();
+            ReadPatern();
+            currentTime = 0.0f;
+        }
+        //Console.WriteLine(currentTime);
+
+    }
+
+    void IncrementIndexPatern()
+    {
+        currentIndexPatern = currentIndexPatern + 1 > patern.Count - 1 ? 0 : currentIndexPatern + 1;
     }
 }
 

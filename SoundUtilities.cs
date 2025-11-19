@@ -40,39 +40,55 @@ public enum ESemitones
     A = 2917
 };
 
+static class Time
+{
+    static double deltatime = 0;
+    static DateTime last = DateTime.UtcNow;
+
+    public static double Deltatime => deltatime;
+
+    public static void UpdateDeltime()
+    {
+        DateTime now = DateTime.UtcNow;
+        deltatime = (now - last).TotalSeconds;
+        last = now;
+        // ... utiliser deltaSeconds
+    }
+}
 
 static class NoteUtilites
 {
-    static Regex regex = new Regex(@"^[A-G](#{0,1})(?:0|[1-8])$");
+    static Regex regex = new Regex(@"^([A-G])(#{0,1})(0|[1-8])$");
 
-    public static float NoteToFrequence(string _fullNote)
+    public static double NoteToFrequence(string _fullNote)
     {
         Match _match = regex.Match(_fullNote);
         if (!_match.Success) return 0.0f;
         string _note = _match.Groups[1].Value;
         string _sharpe = _match.Groups[2].Value;
-        int _octave = int.Parse(_match.Groups[3].Value);
+        string _value = _match.Groups[3].Value;
+        int _octave = int.Parse(_value);
 
-        float _frequence = NoteToFrequence(_note, _sharpe);
+        double _frequence = NoteToFrequence(_note, _sharpe);
 
         return _frequence * MathF.Pow(2, _octave); //Note * 2^_octave
     }
 
-    public static ENote StringToENote(string note)
+    static ENote StringToENote(string note)
     {
         ENote _note = (ENote)Enum.Parse(typeof(ENote), note);
         return _note;
     }
-    public  static ESemitones StringToESemitones(string note)
+    static ESemitones StringToESemitones(string note)
     {
         ESemitones _note = (ESemitones)Enum.Parse(typeof(ESemitones), note);
         return _note;
     }
 
 
-    public static float NoteToFrequence(string _note, string _sharp)
+    static double NoteToFrequence(string _note, string _sharp)
     {
-        int _enumValue = 0;
+        double _enumValue = 0;
         if(_sharp == "#")
         {
             _enumValue = (int)StringToESemitones(_note);
