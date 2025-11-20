@@ -60,18 +60,18 @@ static class NoteUtilites
 {
     static Regex regex = new Regex(@"^([A-G])(#{0,1})(0|[1-8])$");
 
-    public static double NoteToFrequence(string _fullNote)
+    public static bool NoteToFrequence(string _fullNote, ref double _frequency)
     {
         Match _match = regex.Match(_fullNote);
-        if (!_match.Success) return 0.0f;
+        if (!_match.Success) return false;
         string _note = _match.Groups[1].Value;
         string _sharpe = _match.Groups[2].Value;
         string _value = _match.Groups[3].Value;
         int _octave = int.Parse(_value);
 
-        double _frequence = NoteToFrequence(_note, _sharpe);
-
-        return _frequence * MathF.Pow(2, _octave); //Note * 2^_octave
+        double _baseFrequency = NoteToFrequence(_note, _sharpe);
+        _frequency = _baseFrequency * MathF.Pow(2, _octave);
+        return true; //Note * 2^_octave
     }
 
     static ENote StringToENote(string note)

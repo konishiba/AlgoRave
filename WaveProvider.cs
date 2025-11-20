@@ -48,7 +48,7 @@ public class WaveProvider : WaveProvider32
     public void ReadPatern()
     {
         if (patern.Count < 1) return;
-        frequency = NoteUtilites.NoteToFrequence(patern[currentIndexPatern]);
+        NoteUtilites.NoteToFrequence(patern[currentIndexPatern], ref frequency);
         Console.WriteLine(patern[currentIndexPatern]);
     }
 

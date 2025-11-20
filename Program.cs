@@ -38,7 +38,9 @@ class Program
 
     static void Sound()
     {
-        wave = new WaveProvider(NoteUtilites.NoteToFrequence("C#4"));
+        double _freq = 277.6;
+        NoteUtilites.NoteToFrequence("C#6", ref _freq);
+        wave = new WaveProvider(_freq);
         WaveOutEvent _firstOutput = new WaveOutEvent();
         _firstOutput.Init(wave);
         wave.UpdateVolume(50.0f,ref _firstOutput);
