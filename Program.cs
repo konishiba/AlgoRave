@@ -18,6 +18,7 @@ class Program
         AppDomain.CurrentDomain.ProcessExit += Exit;
         Sound();
         wave.Patern.Add("C#6");
+        wave.Patern.Add("~");
         wave.Patern.Add("F2");
         Console.WriteLine("Wave");
 
@@ -43,7 +44,7 @@ class Program
         wave = new WaveProvider(_freq);
         WaveOutEvent _firstOutput = new WaveOutEvent();
         _firstOutput.Init(wave);
-        wave.UpdateVolume(50.0f,ref _firstOutput);
+        wave.SetVolume(0.2f);
         _firstOutput.Play();
     }
 
