@@ -12,22 +12,22 @@ using System.Windows;
 class Program
 {
     static bool exit = false;
-    static WaveProvider wave = null;
+    static Note wave = null;
     static void Main()
     {
         AppDomain.CurrentDomain.ProcessExit += Exit;
         Sound();
-        wave.Patern.Add("C#6");
-        wave.Patern.Add("~");
-        wave.Patern.Add("F2");
-        Console.WriteLine("Wave");
+        //wave.Patern.Add("C#6");
+        //wave.Patern.Add("~");
+        //wave.Patern.Add("F2");
+        //Console.WriteLine("Wave");
 
-        while (exit == false)
-        {
-            Time.UpdateDeltime();
-            wave.Update();
-            //Console.WriteLine("Wave"); 
-        }
+        //while (exit == false)
+        //{
+        //    Time.UpdateDeltime();
+        //    wave.Update();
+        //    //Console.WriteLine("Wave"); 
+        //}
 
         //LiveCoding();
 
@@ -41,11 +41,16 @@ class Program
     {
         double _freq = 277.6;
         NoteUtilites.NoteToFrequence("C#6", ref _freq);
-        wave = new WaveProvider(_freq);
+        //wave = new WaveProvider(_freq);
         WaveOutEvent _firstOutput = new WaveOutEvent();
         _firstOutput.Init(wave);
-        wave.SetVolume(0.2f);
+       // wave.SetAmplitude(0.2f);
         _firstOutput.Play();
+
+
+        //TODO le mettre au moment ou l'on créé la note
+        wave.IsFinished += () => { _firstOutput.Stop(); _firstOutput.Dispose(); };
+        
     }
 
     static void LiveCoding()

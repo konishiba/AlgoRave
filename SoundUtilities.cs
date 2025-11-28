@@ -40,6 +40,14 @@ public enum ESemitones
     A = 2917
 };
 
+public enum ADSR_STATE
+{
+    ATTACK_STATE,
+    DECAY_STATE,
+    SUSTAIN_STATE,
+    RELEASE_STATE,
+}
+
 static class Time
 {
     static double deltatime = 0;

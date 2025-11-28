@@ -76,7 +76,7 @@ public class LiveCodingSystem
             ScriptOptions _options = ScriptOptions.Default
                 .WithImports("System")
                 .WithReferences(
-                    typeof(WaveProvider).Assembly, typeof(ESampleRate).Assembly, typeof(ESampleRate).Assembly
+                    typeof(Note).Assembly, typeof(ESampleRate).Assembly, typeof(ESampleRate).Assembly
                 );
 
             await CSharpScript.RunAsync(

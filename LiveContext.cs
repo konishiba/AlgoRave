@@ -8,23 +8,23 @@ using NAudio.Wave;
 
 public class LiveContext
 {
-    public WaveProvider? wave = null;
-    public WaveOutEvent output = new WaveOutEvent();
+    //public WaveProvider? wave = null;
+    //public WaveOutEvent output = new WaveOutEvent();
 
     public void Start()
     {
-        if (wave == null) return;
-        output.Init(wave);
-        output.Play();
+        //if (wave == null) return;
+        //output.Init(wave);
+        //output.Play();
     }
 
     public void Refresh()
     {
-        Console.WriteLine("Refresh");
-        output.Stop();
-        output.Dispose();
-        output.Init(wave);
-        wave.SetVolume(wave.volume, ref output);
-        output.Play();
+        //Console.WriteLine("Refresh");
+        //output.Stop();
+        //output.Dispose();
+        //output.Init(wave);
+        //wave.SetVolume(wave.amplitude, ref output);
+        //output.Play();
     }
 }
