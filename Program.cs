@@ -22,12 +22,12 @@ class Program
         //wave.Patern.Add("F2");
         //Console.WriteLine("Wave");
 
-        //while (exit == false)
-        //{
-        //    Time.UpdateDeltime();
-        //    wave.Update();
-        //    //Console.WriteLine("Wave"); 
-        //}
+        while (exit == false)
+        {
+            Time.UpdateDeltime();
+            wave.Update();
+            //Console.WriteLine("Wave"); 
+        }
 
         //LiveCoding();
 
@@ -41,16 +41,25 @@ class Program
     {
         double _freq = 277.6;
         NoteUtilites.NoteToFrequence("C#6", ref _freq);
-        //wave = new WaveProvider(_freq);
+        wave = new Note(_freq, 0.5f, 2.0f, new ADSR());
         WaveOutEvent _firstOutput = new WaveOutEvent();
         _firstOutput.Init(wave);
-       // wave.SetAmplitude(0.2f);
-        _firstOutput.Play();
 
 
-        //TODO le mettre au moment ou l'on créé la note
-        wave.IsFinished += () => { _firstOutput.Stop(); _firstOutput.Dispose(); };
-        
+
+        wave.ADSR.OnReleaseFinished += () => _firstOutput.Dispose();
+        wave.Start();
+
+        // //wave = new WaveProvider(_freq);
+        // WaveOutEvent _firstOutput = new WaveOutEvent();
+        // _firstOutput.Init(wave);
+        //// wave.SetAmplitude(0.2f);
+        // _firstOutput.Play();
+
+
+        // //TODO le mettre au moment ou l'on créé la note
+        // wave.IsFinished += () => { _firstOutput.Stop(); _firstOutput.Dispose(); };
+
     }
 
     static void LiveCoding()

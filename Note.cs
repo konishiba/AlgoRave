@@ -12,14 +12,42 @@ internal class Note : WaveProvider32
 
     double phase = 0;
     public double frequency = 440, targetFrequency = 440;
-    public float amplitude = 0.5f, targetAmplitude = 0.5f, tempAmplitude = 0.5f;
-     
+    public float currentAmplitude = 0.5f, amplitude = 0.5f;/*, tempAmplitude = 0.5f;*/
+    float currentDuration = 0.0f,  duration = 0.0f;
+
+    ADSR adrs = new ADSR();
+
+    public ADSR ADSR => adrs;
+
+    public Note(double _frequency, float _amplitude, float _duration, ADSR _adrs)
+    {
+        frequency = _frequency;
+        amplitude = _amplitude;
+        duration = _duration;
+        adrs = _adrs;
+    }
+
+    public void Start()
+    {
+        IsFinished += () => { adrs.currentState = ADSR_STATE.RELEASE_STATE; };
+    }
+
+    public void Update()
+    {
+        adrs.Update(ref currentAmplitude, amplitude);
+
+        currentDuration += (float)Time.Deltatime;
+        if(currentDuration > duration)
+        {
+            IsFinished?.Invoke();
+        }
+    }
+
     public override int Read(float[] _buffer, int _offset, int _count)
     {
         for (int i = 0; i < _count; i++)
         {
             UpdateFrequency();
-            UpdateAmplitude();
 
             float _sin = (float)Math.Sin(phase);
             _buffer[_offset + i] = amplitude * _sin;
@@ -36,10 +64,6 @@ internal class Note : WaveProvider32
     public void UpdateFrequency()
     {
         frequency += (targetFrequency - frequency) * 0.001f;
-    }
-    public void UpdateAmplitude()
-    {
-        amplitude += (targetAmplitude - amplitude) * 0.001f;
     }
 }
 
