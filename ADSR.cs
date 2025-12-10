@@ -31,30 +31,31 @@ public class ADSR
     }
 
     public void Start()
-    { 
-        OnTimerFinished += () => {UpdateState(); };
+    {
+        OnTimerFinished += UpdateState;
     }
 
-    public void Update(ref float _amplitude, float _maxAmplitude)
+    public void Update(float _deltaSample, ref float _amplitude, float _maxAmplitude)
     {
         float _value = 0.0f;
+        //Console.WriteLine(currentState.ToString());
         if(currentState == ADSR_STATE.ATTACK_STATE)
         {
             _value = attackTime;
             _amplitude = _maxAmplitude * Lineare(currentTime / _value); //TODO Mettre la callback à la place
         }
-        if(currentState == ADSR_STATE.DECAY_STATE)
+        else if(currentState == ADSR_STATE.DECAY_STATE)
         {
             _value = decayTime;
-            _amplitude = _maxAmplitude * sustainRate * 1f - Lineare(currentTime / _value);
+            //_amplitude = _maxAmplitude * sustainRate * 1f - Lineare(currentTime / _value);
         }
-        if(currentState == ADSR_STATE.RELEASE_STATE)
+        else if(currentState == ADSR_STATE.RELEASE_STATE)
         {
             _value = releaseTime;
-            _amplitude = _maxAmplitude * 1f - Lineare(currentTime / _value);
+            _amplitude = Math.Clamp(_maxAmplitude * 1f - Lineare(currentTime / _value), 0.001f, _maxAmplitude);
         }
         else return;
-        UpdateTimer(_value);
+        UpdateTimer(_deltaSample, _value);
     }
 
     void UpdateState()
@@ -64,17 +65,19 @@ public class ADSR
         int _index = _allState.IndexOf(currentState) + 1;
         if(_index < _allState.Count)
         {
-             currentState = _allState[_allState.IndexOf(currentState) + 1];
+             currentState = _allState[_index];
         }
         else 
         {
+            Console.WriteLine("Finished");
             OnReleaseFinished?.Invoke();
         }
     }
 
-    void UpdateTimer(float _max)
+    void UpdateTimer(float _deltaSample, float _max)
     {
-        currentTime += (float)Time.Deltatime;
+        if (currentState == ADSR_STATE.SUSTAIN_STATE) return;
+        currentTime += _deltaSample;
         if (currentTime > _max)
         {
             currentTime = _max;

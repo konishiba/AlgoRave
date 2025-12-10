@@ -60,7 +60,6 @@ static class Time
         DateTime now = DateTime.UtcNow;
         deltatime = (now - last).TotalSeconds;
         last = now;
-        // ... utiliser deltaSeconds
     }
 }
 

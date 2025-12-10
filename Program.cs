@@ -13,6 +13,7 @@ class Program
 {
     static bool exit = false;
     static Note wave = null;
+    static WaveOutEvent firstOutput = null;
     static void Main()
     {
         AppDomain.CurrentDomain.ProcessExit += Exit;
@@ -21,11 +22,12 @@ class Program
         //wave.Patern.Add("~");
         //wave.Patern.Add("F2");
         //Console.WriteLine("Wave");
-
         while (exit == false)
         {
-            Time.UpdateDeltime();
-            wave.Update();
+            //Time.UpdateDeltime();
+            Console.WriteLine(Time.Deltatime);
+            if (wave == null) continue;
+            //wave.Update();
             //Console.WriteLine("Wave"); 
         }
 
@@ -41,14 +43,16 @@ class Program
     {
         double _freq = 277.6;
         NoteUtilites.NoteToFrequence("C#6", ref _freq);
-        wave = new Note(_freq, 0.5f, 2.0f, new ADSR());
-        WaveOutEvent _firstOutput = new WaveOutEvent();
-        _firstOutput.Init(wave);
-
-
-
-        wave.ADSR.OnReleaseFinished += () => _firstOutput.Dispose();
+        wave = new Note(_freq, 1.0f, 2.0f, new ADSR(2.0f,1.0f, 0.7f, 5.0f));
+        firstOutput = new WaveOutEvent();
+        firstOutput.Init(wave);
+        //firstOutput.Volume = 0.2f;
+        firstOutput.Play(); 
+        wave.ADSR.OnReleaseFinished += RemoveWAve;
         wave.Start();
+
+        BufferedWaveProvider _bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat());
+        //_bufferedWaveProvider.
 
         // //wave = new WaveProvider(_freq);
         // WaveOutEvent _firstOutput = new WaveOutEvent();
@@ -60,6 +64,12 @@ class Program
         // //TODO le mettre au moment ou l'on créé la note
         // wave.IsFinished += () => { _firstOutput.Stop(); _firstOutput.Dispose(); };
 
+    }
+
+    static void RemoveWAve()
+    {
+        firstOutput.Dispose();
+        wave = null;
     }
 
     static void LiveCoding()
