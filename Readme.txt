@@ -29,14 +29,9 @@ note qui prend une struct ADSR, celle si prend les temp et le taux Sustain ainsi
 [Linéaire 0 ]
 
 garbage collector avec la reflexion ?
-ugjkrgdfgrdk
-lrogrkp iefdsfe
-gkglkofpw,
-lkppgr 
-eokrtdg oejgorpd 
-eope,klel
 
 
-kogpdgl	
-	jiorjiniogr
-	krpdfg,vlrm
+Changement de library audio
+pour CsCore
+
+ce renseigner sur NWaves pour les effets (distort, filter, ...)

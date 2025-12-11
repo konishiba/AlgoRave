@@ -1,12 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using NAudio.Wave;
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using NAudio.Wave;
+
 
 
 class Program
@@ -24,10 +17,10 @@ class Program
         //Console.WriteLine("Wave");
         while (exit == false)
         {
-            //Time.UpdateDeltime();
-            Console.WriteLine(Time.Deltatime);
+            Time.UpdateDeltime();
+            //Console.WriteLine(Time.Deltatime);
             if (wave == null) continue;
-            //wave.Update();
+            wave.Update();
             //Console.WriteLine("Wave"); 
         }
 
@@ -43,13 +36,14 @@ class Program
     {
         double _freq = 277.6;
         NoteUtilites.NoteToFrequence("C#6", ref _freq);
-        wave = new Note(_freq, 1.0f, 2.0f, new ADSR(2.0f,1.0f, 0.7f, 5.0f));
+        Console.WriteLine(_freq);
+        wave = new Note(_freq, 1.0f, 2.0f, new ADSR(1.0f,1.0f, 0.7f, 5.0f));
         firstOutput = new WaveOutEvent();
         firstOutput.Init(wave);
-        //firstOutput.Volume = 0.2f;
+        firstOutput.Volume = 0.1f;
+        wave.Start();
         firstOutput.Play(); 
         wave.ADSR.OnReleaseFinished += RemoveWAve;
-        wave.Start();
 
         BufferedWaveProvider _bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat());
         //_bufferedWaveProvider.

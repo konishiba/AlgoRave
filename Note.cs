@@ -11,7 +11,7 @@ internal class Note : WaveProvider32
     public event Action IsFinished = null;
 
     double phase = 0;
-    public double frequency = 440, targetFrequency = 440;
+    public double frequency = 440;/*, targetFrequency = 440;*/
     public float currentAmplitude = 0.5f, amplitude = 0.5f;/*, tempAmplitude = 0.5f;*/
     float currentDuration = 0.0f,  duration = 0.0f;
 
@@ -21,10 +21,11 @@ internal class Note : WaveProvider32
 
     public Note(double _frequency, float _amplitude, float _duration, ADSR _adrs)
     {
-        targetFrequency = _frequency;
+        frequency = _frequency;
         amplitude = _amplitude;
         duration = _duration;
         adrs = _adrs;
+        adrs.Init(WaveFormat.SampleRate);
     }
 
     public void Start()
@@ -35,8 +36,7 @@ internal class Note : WaveProvider32
 
     public void Update()
     {
-        adrs.Update(GetDeltaSampleRate(),ref currentAmplitude, amplitude);
-        Console.WriteLine(currentAmplitude);
+        //Console.WriteLine(currentAmplitude);
         currentDuration += (float)Time.Deltatime;
         if(currentDuration > duration)
         {
@@ -53,11 +53,11 @@ internal class Note : WaveProvider32
     {
         for (int i = 0; i < _count; i++)
         {
+            adrs.Update(ref currentAmplitude, amplitude);
             //UpdateFrequency();
             _buffer[_offset + i] = currentAmplitude * (float)Math.Sin(phase);
             phase += 2f * MathF.PI * frequency / WaveFormat.SampleRate;
-            if (phase >= MathF.PI * 2f)
-                phase -= 2f * MathF.PI;
+            phase = phase >= MathF.PI * 2f ? phase -= 2f * MathF.PI : phase;
         }
         //Console.WriteLine("Target : " + targetFrequency.ToString());
         //Console.WriteLine("freq : " + frequency.ToString());
@@ -67,7 +67,7 @@ internal class Note : WaveProvider32
 
     public void UpdateFrequency()
     {
-        frequency += (targetFrequency - frequency) * GetDeltaSampleRate();
+        //frequency += (targetFrequency - frequency) * GetDeltaSampleRate();
     }
 }
 

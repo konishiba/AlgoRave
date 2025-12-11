@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,10 @@ public class ADSR
 
     public ADSR_STATE currentState = ADSR_STATE.ATTACK_STATE;
 
-    float currentTime = 0.0f, attackTime = 0.0f, decayTime = 0.0f, sustainRate = 1f, releaseTime = 0.0f;
+    float attackRate = 0, decayRate = 0, releaseRate = 0;
+    float attackTime = 0.0f, decayTime = 0.0f, sustainRate = 1f, releaseTime = 0.0f;
+    int currentSampleStageIndex = 0;
+    float sampleRate = 0;
 
     public ADSR(float _attackTime, float _decayTime, float _sustainRate, float _releaseTime)
     {
@@ -32,30 +36,42 @@ public class ADSR
 
     public void Start()
     {
-        OnTimerFinished += UpdateState;
+        //OnTimerFinished += UpdateState;
     }
 
-    public void Update(float _deltaSample, ref float _amplitude, float _maxAmplitude)
+    public void Init(int _sampleRate)
     {
-        float _value = 0.0f;
+        sampleRate = (float)_sampleRate;
+        attackRate = (int)attackTime * sampleRate;
+        decayRate = (int)decayTime * sampleRate;
+        releaseRate = (int)releaseTime * sampleRate;
+    }
+
+    public void Update(ref float _amplitude, float _maxAmplitude)
+    {
         //Console.WriteLine(currentState.ToString());
         if(currentState == ADSR_STATE.ATTACK_STATE)
         {
-            _value = attackTime;
-            _amplitude = _maxAmplitude * Lineare(currentTime / _value); //TODO Mettre la callback à la place
+            float _factor = Lineare(currentSampleStageIndex / attackRate);
+            //Console.WriteLine(_factor);
+            _amplitude = _maxAmplitude * _factor; //TODO Mettre la callback à la place
+            UpdateSampleStageIndex(attackRate);
         }
         else if(currentState == ADSR_STATE.DECAY_STATE)
         {
-            _value = decayTime;
+            //_value = decayRate;
+            //UpdateSampleStageIndex(_value);
             //_amplitude = _maxAmplitude * sustainRate * 1f - Lineare(currentTime / _value);
         }
         else if(currentState == ADSR_STATE.RELEASE_STATE)
         {
-            _value = releaseTime;
-            _amplitude = Math.Clamp(_maxAmplitude * 1f - Lineare(currentTime / _value), 0.001f, _maxAmplitude);
+            //_value = releaseRate;
+            _amplitude = Math.Clamp(_maxAmplitude * 1f - Lineare(currentSampleStageIndex / releaseRate), 0.001f, _maxAmplitude);
+            UpdateSampleStageIndex(releaseRate);
         }
         else return;
-        UpdateTimer(_deltaSample, _value);
+        //Console.WriteLine(_amplitude.ToString());
+        
     }
 
     void UpdateState()
@@ -63,9 +79,11 @@ public class ADSR
       
         List<ADSR_STATE> _allState = Enum.GetValues<ADSR_STATE>().ToList();
         int _index = _allState.IndexOf(currentState) + 1;
+        Console.WriteLine("Update State :" + currentState);
         if(_index < _allState.Count)
         {
-             currentState = _allState[_index];
+            currentState = _allState[_index];
+            currentSampleStageIndex = 0;
         }
         else 
         {
@@ -74,13 +92,15 @@ public class ADSR
         }
     }
 
-    void UpdateTimer(float _deltaSample, float _max)
+    void UpdateSampleStageIndex(float _max)
     {
         if (currentState == ADSR_STATE.SUSTAIN_STATE) return;
-        currentTime += _deltaSample;
-        if (currentTime > _max)
+        currentSampleStageIndex++;
+        //Console.WriteLine("currentSampleStageIndex : " + currentSampleStageIndex);
+        if (currentSampleStageIndex > _max)
         {
-            currentTime = _max;
+            currentSampleStageIndex = 0;
+            UpdateState();
             OnTimerFinished?.Invoke();
         }
     }
