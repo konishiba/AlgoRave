@@ -61,6 +61,27 @@ static class Time
         deltatime = (now - last).TotalSeconds;
         last = now;
     }
+    private static string TwoDigits(int value)
+    {
+        return value.ToString("D2");
+    }
+
+    public static string GetCurrentRealTime()
+    {
+        DateTime now = DateTime.Now;
+
+        string date =
+            TwoDigits(now.Day) + "/" +
+            TwoDigits(now.Month) + "/" +
+            TwoDigits(now.Year);
+
+        string time =
+            TwoDigits(now.Hour) + ":" +
+            TwoDigits(now.Minute) + ":" +
+            TwoDigits(now.Second);
+
+        return date + " " + time;
+    }
 }
 
 static class NoteUtilites

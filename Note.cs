@@ -11,13 +11,17 @@ internal class Note : WaveProvider32
     public event Action IsFinished = null;
 
     double phase = 0;
-    public double frequency = 440;/*, targetFrequency = 440;*/
-    public float currentAmplitude = 0.5f, amplitude = 0.5f;/*, tempAmplitude = 0.5f;*/
-    float currentDuration = 0.0f,  duration = 0.0f;
+    double frequency = 440;/*, targetFrequency = 440;*/
+    float currentAmplitude = 0.5f, amplitude = 0.5f;/*, tempAmplitude = 0.5f;*/
+    double currentDuration = 0.0f,  duration = 0.0f;
 
     ADSR adrs = new ADSR();
 
     public ADSR ADSR => adrs;
+
+    //debug
+    public double CurrentDuration => currentDuration;
+    public double CurrentAmplitude => currentAmplitude;
 
     public Note(double _frequency, float _amplitude, float _duration, ADSR _adrs)
     {
@@ -37,10 +41,10 @@ internal class Note : WaveProvider32
     public void Update()
     {
         //Console.WriteLine(currentAmplitude);
-        currentDuration += (float)Time.Deltatime;
+        currentDuration += Time.Deltatime;
         if(currentDuration > duration)
         {
-            IsFinished?.Invoke();
+            //IsFinished?.Invoke();
         }
     }
 
