@@ -43,9 +43,9 @@ class Program
             if (interval > 0.01f)
             {
                 interval = 0.0f;
-                //logger.PrintLog(VerbosityType.Display, $"currentDuration : { wave.CurrentDuration} " +
-                //                                       $"| currentAmplitude : {wave.CurrentAmplitude}" +
-                //                                       $"| currentState : {wave.ADSR.currentState}", logger.GetDebugInfo());
+                logger.PrintLog(VerbosityType.Display, $"currentDuration : {wave.CurrentDuration} " +
+                                                       $"| currentAmplitude : {wave.CurrentAmplitude}" +
+                                                       $"| currentState : {wave.ADSR.currentState}", logger.GetDebugInfo());
             }
             //if (wave.ADSR.currentState == ADSR_STATE.RELEASE_STATE)
             //{
@@ -68,9 +68,9 @@ class Program
     static void Sound()
     {
         double _freq = 277.6;
-        NoteUtilites.NoteToFrequence("C1", ref _freq);
+        NoteUtilites.NoteToFrequence("C3", ref _freq);
         Console.WriteLine(_freq);
-        wave = new Note(_freq,1.0f, 10.0f, new ADSR(1.0f,0.5f, 0.5f, 1.0f));
+        wave = new Note(_freq,1.0f, 5.0f, new ADSR(0.5f,0.5f, 0.5f, 0.5f));
         firstOutput = new WaveOutEvent();
         firstOutput.Init(wave);
         firstOutput.Volume = 0.5f;

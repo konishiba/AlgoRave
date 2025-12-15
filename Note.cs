@@ -44,7 +44,7 @@ internal class Note : WaveProvider32
         currentDuration += Time.Deltatime;
         if(currentDuration > duration)
         {
-            //IsFinished?.Invoke();
+            IsFinished?.Invoke();
         }
     }
 

@@ -61,13 +61,19 @@ public class ADSR
         }
         else if(currentState == ADSR_STATE.DECAY_STATE)
         {
-            float _result = (float)currentSampleStageIndex / (float)decayRate;
+            float _targetAmplitude = sustainRate * _maxAmplitude;
             float _linear = Lineare((float)currentSampleStageIndex / (float)decayRate);
-            float _dif = _maxAmplitude  * _linear/*sustainRate*/;
-            logger.PrintLog(VerbosityType.Display, $"amplitude : {_amplitude} " +
-                                                       $"| linear : {_linear}" +
-                                                       $"| dif : {_dif}", logger.GetDebugInfo());
-            _amplitude = _amplitude - _dif;
+            _amplitude = _maxAmplitude + (_targetAmplitude - _maxAmplitude) * _linear;
+
+            //float _result = (float)currentSampleStageIndex / (float)decayRate;
+            //float _linear = Lineare((float)currentSampleStageIndex / (float)decayRate);
+            //float _dif = _maxAmplitude  * _linear/*sustainRate*/;
+
+            //logger.PrintLog(VerbosityType.Display, $"amplitude : {_amplitude} " +
+            //                                           $"| linear : {_linear}" +
+            //                                           $"| dif : {_dif}", logger.GetDebugInfo());
+            //_amplitude = _amplitude - _dif;
+
             UpdateSampleStageIndex(decayRate);
             //if (_amplitude < .0f) logger.PrintLog(VerbosityType.Warning, _dif);
         }
