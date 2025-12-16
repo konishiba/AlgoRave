@@ -8,12 +8,21 @@
     ".NETCoreApp,Version=v9.0": {
       "Music/1.0.0": {
         "dependencies": {
+          "CSCore": "1.2.1.2",
           "Microsoft.CodeAnalysis.CSharp": "4.14.0",
           "Microsoft.CodeAnalysis.CSharp.Scripting": "4.14.0",
           "NAudio": "2.2.1"
         },
         "runtime": {
           "Music.dll": {}
+        }
+      },
+      "CSCore/1.2.1.2": {
+        "runtime": {
+          "lib/net35-client/CSCore.dll": {
+            "assemblyVersion": "1.2.1.2",
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
       "Microsoft.CodeAnalysis.Analyzers/3.11.0": {},
@@ -332,6 +341,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "CSCore/1.2.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DoQKUcdZLQawo3mOg8CvujJD9YkvTt6NtEu7S+OCo8+ySl8eCeUw4LFyL2E1OcAkPU918HZM6sUNcvIMcXWg6g==",
+      "path": "cscore/1.2.1.2",
+      "hashPath": "cscore.1.2.1.2.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Analyzers/3.11.0": {
       "type": "package",

@@ -392,3 +392,4 @@ E:\Git\AlgoRave\obj\Debug\net9.0\refint\Music.dll
 E:\Git\AlgoRave\obj\Debug\net9.0\Music.pdb
 E:\Git\AlgoRave\obj\Debug\net9.0\Music.genruntimeconfig.cache
 E:\Git\AlgoRave\obj\Debug\net9.0\ref\Music.dll
+E:\Git\AlgoRave\bin\Debug\net9.0\CSCore.dll

@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System.Diagnostics;
-
+using CSCore;
+using CSCore.SoundOut;
 
 
 class Program
@@ -18,8 +19,36 @@ class Program
     static void Main()
     {
         logger.Init();
+
+        CSCoreTest
+
+
+
+
+
+        //Sound();
+        //LiveCoding();
+    }
+
+
+    static void CSCoreTest()
+    {
+        var sine = new SineWaveSource(44100, 200f); // sinus à 200 Hz
+
+        using (var wasapiOut = new WasapiOut())
+        {
+            wasapiOut.Initialize(sine);
+            wasapiOut.Play();
+
+            Console.WriteLine("Lecture... Appuie sur ENTRER pour arrêter.");
+            Console.ReadLine();
+        }
+    }
+
+    static void Sound()
+    {
+        InitSound();
         AppDomain.CurrentDomain.ProcessExit += Exit;
-        Sound();
 
         //wave.Patern.Add("C#6");
         //wave.Patern.Add("~");
@@ -47,25 +76,12 @@ class Program
                                                        $"| currentAmplitude : {wave.CurrentAmplitude}" +
                                                        $"| currentState : {wave.ADSR.currentState}", logger.GetDebugInfo());
             }
-            //if (wave.ADSR.currentState == ADSR_STATE.RELEASE_STATE)
-            //{
-            //    //debugTime += (float)Time.Deltatime;
-            //    //logger.PrintLog(VerbosityType.Display, "debugTime : " + debugTime, logger.GetDebugInfo());
-            //}
-            //debug
 
-            //Console.WriteLine("Wave"); 
         }
 
-        //LiveCoding();
-
-        //Console.WriteLine(NoteUtilites.NoteToFrequence("C4"));
-
-        //Sound();
     }
 
-
-    static void Sound()
+    static void InitSound()
     {
         double _freq = 277.6;
         NoteUtilites.NoteToFrequence("C3", ref _freq);
