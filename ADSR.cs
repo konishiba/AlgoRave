@@ -49,10 +49,11 @@ public class ADSR
         releaseRate = (int)(releaseTime * sampleRate);
     }
 
-    public void Update(ref float _amplitude, float _maxAmplitude)
+    public float Update(float _currentAmplitude, float _maxAmplitude)
     {
+        float _amplitude = _currentAmplitude;
         //Console.WriteLine(currentState.ToString());
-        if(currentState == ADSR_STATE.ATTACK_STATE)
+        if (currentState == ADSR_STATE.ATTACK_STATE)
         {
             float _factor = Lineare((float)currentSampleStageIndex / (float)attackRate);
             //Console.WriteLine(_factor);
@@ -83,7 +84,7 @@ public class ADSR
             _amplitude = Math.Clamp(_maxAmplitude * 1f - Lineare((float)currentSampleStageIndex / (float)releaseRate), 0.001f, _maxAmplitude);
             UpdateSampleStageIndex(releaseRate);
         }
-        else return;
+        return _amplitude;
         //Console.WriteLine(_amplitude.ToString());
         
     }

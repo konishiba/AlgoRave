@@ -1,4 +1,4 @@
-﻿using NAudio.Wave;
+﻿
 using System.Diagnostics;
 using CSCore;
 using CSCore.SoundOut;
@@ -8,9 +8,11 @@ class Program
 {
     static bool exit = false;
     static Note wave = null;
-    static Note secondWave = null;
-    static WaveOutEvent firstOutput = null;
-    static WaveOutEvent secondOutput = null;
+    static Test test = null;
+
+    static CSCore.SoundOut.WasapiOut wasapiOut = null;
+
+
 
     //For debug;
     static double debugTime = 0.0f;
@@ -19,35 +21,54 @@ class Program
     static void Main()
     {
         logger.Init();
-
-        CSCoreTest
-
+        Sound();
 
 
 
 
-        //Sound();
+
+
         //LiveCoding();
     }
 
 
     static void CSCoreTest()
     {
-        var sine = new SineWaveSource(44100, 200f); // sinus à 200 Hz
+        test = new Test();
 
-        using (var wasapiOut = new WasapiOut())
-        {
-            wasapiOut.Initialize(sine);
-            wasapiOut.Play();
 
-            Console.WriteLine("Lecture... Appuie sur ENTRER pour arrêter.");
-            Console.ReadLine();
-        }
+        double _freq = 277.6;
+        NoteUtilites.NoteToFrequence("C3", ref _freq);
+        wave = new Note(_freq, 1.0f, 5.0f, new ADSR(0.5f, 0.5f, 0.5f, 0.5f));
+
+        test.AddNote(wave);
+
+        wasapiOut = new CSCore.SoundOut.WasapiOut();
+        wasapiOut.Initialize(test.ToWaveSource());
+        //wave.Start();
+        wasapiOut.Volume = 0.5f;
+        wasapiOut.Play();
+        //wave.ADSR.OnReleaseFinished += Dispose;
+
+
+
+        //Test sine = new Test(44100, (float)_freq); // sinus à 200 Hz
+        //wasapiOut.Play();
+
+        //Console.WriteLine("Lecture... Appuie sur ENTRER pour arrêter.");
+        //Console.ReadLine();
+    }
+
+    static void Dispose()
+    {
+        wasapiOut?.Stop();
+        wasapiOut?.Dispose();
     }
 
     static void Sound()
     {
-        InitSound();
+        //InitSound();
+        CSCoreTest();
         AppDomain.CurrentDomain.ProcessExit += Exit;
 
         //wave.Patern.Add("C#6");
@@ -69,13 +90,11 @@ class Program
             interval += _deltatime;
             //debug 
             //TODO remove debug
-            if (interval > 0.01f)
-            {
-                interval = 0.0f;
-                logger.PrintLog(VerbosityType.Display, $"currentDuration : {wave.CurrentDuration} " +
-                                                       $"| currentAmplitude : {wave.CurrentAmplitude}" +
-                                                       $"| currentState : {wave.ADSR.currentState}", logger.GetDebugInfo());
-            }
+            //if (interval > 0.01f)
+            //{
+            //    interval = 0.0f;
+            //    test.PrintDebug();
+            //}
 
         }
 
@@ -83,16 +102,16 @@ class Program
 
     static void InitSound()
     {
-        double _freq = 277.6;
-        NoteUtilites.NoteToFrequence("C3", ref _freq);
-        Console.WriteLine(_freq);
-        wave = new Note(_freq,1.0f, 5.0f, new ADSR(0.5f,0.5f, 0.5f, 0.5f));
-        firstOutput = new WaveOutEvent();
-        firstOutput.Init(wave);
-        firstOutput.Volume = 0.5f;
-        wave.Start();
-        firstOutput.Play(); 
-        wave.ADSR.OnReleaseFinished += RemoveWAve;
+        //double _freq = 277.6;
+        //NoteUtilites.NoteToFrequence("C3", ref _freq);
+        //Console.WriteLine(_freq);
+        //wave = new Note(_freq, 1.0f, 5.0f, new ADSR(0.5f, 0.5f, 0.5f, 0.5f));
+        //firstOutput = new WaveOutEvent();
+        //firstOutput.Init(wave);
+        //firstOutput.Volume = 0.5f;
+        //wave.Start();
+        //firstOutput.Play();
+        //wave.ADSR.OnReleaseFinished += RemoveWAve;
 
         //NoteUtilites.NoteToFrequence("F#3", ref _freq);
         //secondWave = new Note(_freq,1.0f, 8.0f, new ADSR(1.0f,1.0f, 1.0f, 1.0f));
@@ -118,9 +137,10 @@ class Program
 
     }
 
-    static void RemoveWAve()
+    static void RemoveWave()
     {
-        firstOutput.Dispose();
+        //firstOutput.Dispose();
+        wasapiOut.Dispose();
         wave = null;
     }
 

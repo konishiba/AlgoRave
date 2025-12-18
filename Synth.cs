@@ -1,5 +1,4 @@
-﻿using NAudio.Wave;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +16,10 @@ public class Synth
     public List<string>Patern { get { return patern; } set { patern = value; } }
 
 
-    public void SetVolume(float _volume, ref WaveOutEvent _output)
-    {
-        _output.Volume = _volume / 1000;
-    }
+    //public void SetVolume(float _volume, ref WaveOutEvent _output)
+    //{
+    //    _output.Volume = _volume / 1000;
+    //}
 
     //public void Update()
     //{

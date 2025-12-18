@@ -322,12 +322,6 @@ E:\Git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.Asio.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.Core.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.Midi.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.Wasapi.dll
-E:\Git\AlgoRave\bin\Debug\net9.0\NAudio.WinMM.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
