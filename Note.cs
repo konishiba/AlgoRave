@@ -46,7 +46,7 @@ public class Note
     public void Start()
     {
         IsFinished += () => { adrs.currentState = ADSR_STATE.RELEASE_STATE; };
-        adrs.OnTimerFinished += Dispose;
+        adrs.OnReleaseFinished += Dispose;
         adrs.Init(sampleRate);
         adrs.Start();
     }
@@ -65,7 +65,8 @@ public class Note
     public double NextSample()
     {
         //logger.PrintLog(VerbosityType.Warning, $"CurrentAmplitude {CurrentAmplitude}");
-        logger.PrintLog(VerbosityType.Warning, $"CurrentAmplitude {CurrentAmplitude}");
+        //logger.PrintLog(VerbosityType.Warning, $"ADRS {adrs}");
+
         currentAmplitude = adrs.Update(currentAmplitude,amplitude);
         //UpdateFrequency();
         float _sample = currentAmplitude * (float)Math.Sin(phase);

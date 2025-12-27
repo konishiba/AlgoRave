@@ -9,6 +9,8 @@ class Program
     static bool exit = false;
     static Note wave = null;
     static Test test = null;
+    static Mutex lockNote = new Mutex();
+
 
     static CSCore.SoundOut.WasapiOut wasapiOut = null;
 
@@ -38,10 +40,10 @@ class Program
 
 
         double _freq = 277.6;
-        NoteUtilites.NoteToFrequence("C3", ref _freq);
-        wave = new Note(_freq, 1.0f, 5.0f, new ADSR(0.5f, 0.5f, 0.5f, 0.5f));
-
-        test.AddNote(wave);
+        NoteUtilites.NoteToFrequence("C6", ref _freq);
+        test.AddNote(new Note(_freq, 1.0f, 5.0f, new ADSR(0.5f, 0.5f, 0.5f, 0.5f)));
+        NoteUtilites.NoteToFrequence("G4", ref _freq);
+        test.AddNote(new Note(_freq, 1.0f, 8.0f, new ADSR(0.5f, 0.5f, 0.8f, 0.5f)));
 
         wasapiOut = new CSCore.SoundOut.WasapiOut();
         wasapiOut.Initialize(test.ToWaveSource());
@@ -82,8 +84,15 @@ class Program
         {
             Time.UpdateDeltime();
             //Console.WriteLine(Time.Deltatime);
-            if (wave == null) continue;
-            wave.Update();
+            //if (wave == null) continue;
+            List<Note> notes = new List<Note>(test.Notes); 
+
+            foreach (Note note in notes)
+            {
+                //if (note != null) continue;
+                note.Update();
+            }
+            //wave.Update();
             //TODO Remove debug
             double _deltatime = Time.Deltatime;
             debugTime += _deltatime;

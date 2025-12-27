@@ -9,6 +9,8 @@ public class Test : ISampleSource
     List<Note> notes = new();
     Mutex notesLock = new Mutex();
 
+    public List<Note> Notes => notes;
+
     public Test(int _sampleRate = 44100)
     {
         sampleRate = _sampleRate;
@@ -19,7 +21,7 @@ public class Test : ISampleSource
         if (_note == null) return;
         _note.SampleRate = sampleRate;
         _note.Start();
-        //_note.IsDispose += () => { RemoveNote(_note); };
+        _note.IsDispose += () => { RemoveNote(_note); };
         notes.Add(_note);
     }
     public void RemoveNote(Note _note)
@@ -43,6 +45,7 @@ public class Test : ISampleSource
         {
             notesCopy = new List<Note>(notes); // copie safe
         }
+        PrintDebug();
         for (int i = 0; i < count; i++)
         {
             _sample = 0.0f;

@@ -81,7 +81,7 @@ public class ADSR
         else if(currentState == ADSR_STATE.RELEASE_STATE)
         {
             //_value = releaseRate;
-            _amplitude = Math.Clamp(_maxAmplitude * 1f - Lineare((float)currentSampleStageIndex / (float)releaseRate), 0.001f, _maxAmplitude);
+            _amplitude = Math.Clamp(sustainRate * _maxAmplitude * 1f - Lineare((float)currentSampleStageIndex / (float)releaseRate), 0.001f, _maxAmplitude);
             UpdateSampleStageIndex(releaseRate);
         }
         return _amplitude;

@@ -1401,23 +1401,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\GIME1202\\.nuget\\packages\\": {},
+    "C:\\Users\\konishiba\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Git\\AlgoRave\\Music.csproj",
+      "projectUniqueName": "F:\\Cours 25-26\\git\\AlgoRave\\Music.csproj",
       "projectName": "Music",
-      "projectPath": "E:\\Git\\AlgoRave\\Music.csproj",
-      "packagesPath": "C:\\Users\\GIME1202\\.nuget\\packages\\",
-      "outputPath": "E:\\Git\\AlgoRave\\obj\\",
+      "projectPath": "F:\\Cours 25-26\\git\\AlgoRave\\Music.csproj",
+      "packagesPath": "C:\\Users\\konishiba\\.nuget\\packages\\",
+      "outputPath": "F:\\Cours 25-26\\git\\AlgoRave\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\GIME1202\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\konishiba\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1426,7 +1426,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1480,7 +1479,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1489,7 +1488,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'CSCore 1.2.1.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
+      "message": "Le package 'CSCore 1.2.1.2' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net9.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
       "libraryId": "CSCore",
       "targetGraphs": [
         "net9.0"

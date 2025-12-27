@@ -243,12 +243,6 @@ F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.Asio.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.Core.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.Midi.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.Wasapi.dll
-F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\NAudio.WinMM.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
 F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -387,3 +381,4 @@ E:\Git\AlgoRave\obj\Debug\net9.0\Music.pdb
 E:\Git\AlgoRave\obj\Debug\net9.0\Music.genruntimeconfig.cache
 E:\Git\AlgoRave\obj\Debug\net9.0\ref\Music.dll
 E:\Git\AlgoRave\bin\Debug\net9.0\CSCore.dll
+F:\Cours 25-26\git\AlgoRave\bin\Debug\net9.0\CSCore.dll
