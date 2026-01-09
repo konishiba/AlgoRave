@@ -17,8 +17,7 @@ public class ADSR
     float attackTime = 0.0f, decayTime = 0.0f, sustainRate = 1f, releaseTime = 0.0f;
     int currentSampleStageIndex = 0;
     int sampleRate = 0;
-
-
+    bool isDisposing = false;
 
     public ADSR(float _attackTime, float _decayTime, float _sustainRate, float _releaseTime)
     {
@@ -52,6 +51,8 @@ public class ADSR
     public float Update(float _currentAmplitude, float _maxAmplitude)
     {
         float _amplitude = _currentAmplitude;
+
+        if(isDisposing)return _amplitude;
         //Console.WriteLine(currentState.ToString());
         if (currentState == ADSR_STATE.ATTACK_STATE)
         {
@@ -104,6 +105,7 @@ public class ADSR
         else 
         {
             logger.PrintLog(VerbosityType.Display, "Finished", logger.GetDebugInfo());
+            isDisposing = true;
             OnReleaseFinished?.Invoke();
         }
     }

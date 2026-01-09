@@ -8,7 +8,7 @@ class Program
 {
     static bool exit = false;
     static Note wave = null;
-    static Test test = null;
+    static NoteReader test = null;
     static Mutex lockNote = new Mutex();
 
 
@@ -36,11 +36,11 @@ class Program
 
     static void CSCoreTest()
     {
-        test = new Test();
+        test = NoteReader.Instance;
 
 
         double _freq = 277.6;
-        NoteUtilites.NoteToFrequence("C6", ref _freq);
+        NoteUtilites.NoteToFrequence("C1", ref _freq);
         test.AddNote(new Note(_freq, 1.0f, 5.0f, new ADSR(0.5f, 0.5f, 0.5f, 0.5f)));
         NoteUtilites.NoteToFrequence("G4", ref _freq);
         test.AddNote(new Note(_freq, 1.0f, 8.0f, new ADSR(0.5f, 0.5f, 0.8f, 0.5f)));
@@ -89,7 +89,7 @@ class Program
 
             foreach (Note note in notes)
             {
-                //if (note != null) continue;
+                if (note == null) continue;
                 note.Update();
             }
             //wave.Update();

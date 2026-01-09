@@ -2,7 +2,7 @@
 using CSCore.XAudio2;
 using System.Collections.Generic;
 
-public class Test : ISampleSource
+public class NoteReader : Singleton<NoteReader>, ISampleSource
 {
     private readonly int sampleRate;
 
@@ -11,9 +11,9 @@ public class Test : ISampleSource
 
     public List<Note> Notes => notes;
 
-    public Test(int _sampleRate = 44100)
+    public NoteReader()
     {
-        sampleRate = _sampleRate;
+        sampleRate = (int)ESampleRate.MEDIAM_QUALITY;
     }
 
     public void AddNote(Note _note)
@@ -45,7 +45,6 @@ public class Test : ISampleSource
         {
             notesCopy = new List<Note>(notes); // copie safe
         }
-        PrintDebug();
         for (int i = 0; i < count; i++)
         {
             _sample = 0.0f;
